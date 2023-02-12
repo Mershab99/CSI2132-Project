@@ -1,0 +1,13 @@
+# dev env
+__pycache__
+.git
+.mypy_cache
+.venv
+.vscode
+.python-version
+.pre-commit-config.yaml
+poetry.lock
+
+# ignore build artifacts
+.web
+pynecone.db

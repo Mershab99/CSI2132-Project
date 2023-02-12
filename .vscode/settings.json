@@ -1,0 +1,13 @@
+{
+    "cSpell.words": [
+        "pcconfig",
+        "pynecone"
+    ],
+    "files.exclude": {
+        "**/__pycache__": true
+    },
+    "flake8.path": [
+        ".venv/bin/pflake8"
+    ],
+    "python.analysis.typeCheckingMode": "off"
+}
