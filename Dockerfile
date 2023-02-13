@@ -28,8 +28,8 @@ WORKDIR /app
 COPY --from=node /usr/local/bin /usr/local/bin
 COPY --from=node /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/npm
 COPY --from=node /opt/yarn* /opt/yarn
-RUN ln -fs /opt/yarn/bin/yarn /usr/local/bin/yarn && \
-    ln -fs /opt/yarn/bin/yarnpkg /usr/local/bin/yarnpkg
+#RUN ln -fs /opt/yarn/bin/yarn /usr/local/bin/yarn && \
+#    ln -fs /opt/yarn/bin/yarnpkg /usr/local/bin/yarnpkg
 
 # copy bun binaries
 COPY --from=bun /usr/local/bin/bun /usr/local/bin/bun
@@ -50,4 +50,4 @@ COPY --chown=app:app . ./
 RUN pc init
 
 # start process
-ENTRYPOINT ["pc", "run"]
+ENTRYPOINT ["pc", "run", "--loglevel", "debug"]
