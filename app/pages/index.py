@@ -28,6 +28,12 @@ def index():
                 color="rgb(107,99,246)",
                 button=True,
             ),
+            pc.link(
+                pc.button("test"),
+                href="/test",
+                color="rgb(107,99,246)",
+                button=True,
+            ),
             spacing="1.5em",
             font_size="2em",
         ),

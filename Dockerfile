@@ -1,53 +1,58 @@
-FROM node:16.19.0-buster-slim as node
-FROM jarredsumner/bun:edge as bun
+FROM python:3.11-slim as base
+
+RUN adduser --disabled-password pynecone
 
 
-FROM python:3.10-buster as builder
-# python environment variables
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    PYTHONUTF8=1 \
-    PYTHONIOENCODING=UTF-8 \
-    PIP_DISABLE_PIP_VERSION_CHECK=on
+FROM base as build
 
-# copy requirements.txt
-COPY requirements.txt /root/
-
-# install pip dependencies
-RUN pip install --no-cache-dir -U pip  &&\
-    pip install --no-cache-dir -U setuptools  && \
-    pip install --no-cache-dir -U wheel  && \
-    pip install --no-cache-dir -r /root/requirements.txt
-
-
-FROM python:3.10-slim-buster as runner
-# set work directory
 WORKDIR /app
+COPY . .
 
-# copy nodejs binaries
-COPY --from=node /usr/local/bin /usr/local/bin
-COPY --from=node /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/npm
-COPY --from=node /opt/yarn* /opt/yarn
-#RUN ln -fs /opt/yarn/bin/yarn /usr/local/bin/yarn && \
-#    ln -fs /opt/yarn/bin/yarnpkg /usr/local/bin/yarnpkg
+RUN apt-get update && apt-get install -y \
+    gcc \
+    python3-dev
 
-# copy bun binaries
-COPY --from=bun /usr/local/bin/bun /usr/local/bin/bun
+RUN echo pip install wheel \
+    && pip install -r requirements.txt
+
+
+FROM base as runtime
+
+RUN apt-get update && apt-get install -y \
+    curl \
+    && curl -fsSL https://deb.nodesource.com/setup_19.x | bash - \
+    && apt-get update && apt-get install -y \
+    nodejs \
+    unzip \
+    graphviz \
+    && rm -rf /var/lib/apt/lists/*
+
+
 
 # copy python package
-COPY --from=builder /usr/local/lib/python3.10/site-packages /usr/local/lib/python3.10/site-packages
-COPY --from=builder /usr/local/bin/pc /usr/local/bin/pc
+COPY --from=build /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=build /usr/local/bin/pc /usr/local/bin/pc
 
-# permission settings
-RUN groupadd -r app && useradd -r -m -g app app
-RUN chown -R app:app /app
-USER app
 
-# copy source code
-COPY --chown=app:app . ./
+FROM runtime as init
 
-# init pynecone
+WORKDIR /app
+ENV BUN_INSTALL="/app/.bun"
+COPY --from=build /app/ /app/
+
+RUN echo $PATH
 RUN pc init
 
-# start process
-ENTRYPOINT ["pc", "run", "--loglevel", "debug"]
+
+FROM runtime
+
+#COPY --chown=pynecone --from=init /app/ /app/
+COPY --from=init /app/ /app/
+USER pynecone
+WORKDIR /app
+
+#CMD ["pc","run" , "--env", "prod"]
+CMD ["pc", "run","--env", "dev"]
+
+EXPOSE 3000
+EXPOSE 8000

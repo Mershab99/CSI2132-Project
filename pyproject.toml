@@ -1,13 +1,12 @@
 [tool.poetry]
-name = "pynecone-template"
+name = "csi2132ehotels"
 version = "0.1.0"
 description = ""
-authors = ["sushi-chaaaan <mail@sushichan.live>"]
+authors = ["Mershab Issadien <mershab99@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
-pynecone-io = "^0.1.13"
+python = "^3.11"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.12.0"
