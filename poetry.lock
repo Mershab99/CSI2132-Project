@@ -1472,7 +1472,7 @@ typing-extensions = ">=3.7.4"
 [[package]]
 name = "sqlmodel"
 version = "0.0.8"
-description = "SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness."
+description = "pc.Model, SQL databases in Python, designed for simplicity, compatibility, and robustness."
 category = "main"
 optional = false
 python-versions = ">=3.6.1,<4.0.0"

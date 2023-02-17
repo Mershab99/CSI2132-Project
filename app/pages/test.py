@@ -4,18 +4,8 @@ from app.state import BaseState
 
 from app.models import HotelChain
 
-HotelChain(chain_name='mychain')
 
-
-class State(BaseState):
-    count: int = 0
-
-    def increment_by_2(self):
-        self.count += 2
-
-    def decrement_by_2(self):
-        self.count -= 2
-
+#class State(BaseState):
 
 def test():
     return pc.hstack(
