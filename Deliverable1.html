@@ -1,0 +1,129 @@
+<h1 id="csi2132-e-hotels-booking-system-deliverable-1-report">CSI2132 E-Hotels Booking System Deliverable 1 Report</h1>
+<p><strong>Mershab Issadien</strong> - <em>300027272</em></p>
+<h2 id="database-schema">Database Schema</h2>
+<p>This is a snippet from <code>app/models.py</code>.</p>
+<p>Please Ignore the <code>pc.Model</code>. It is the Pynecone representation of SQLModel</p>
+<pre><code class="lang-python">
+## DATABASE MODELS
+
+class HotelChain(pc.Model, table=True):
+    id: Optional[<span class="hljs-keyword">int</span>] = Field(<span class="hljs-keyword">default</span>=<span class="hljs-literal">None</span>, primary_key=True)
+    name: <span class="hljs-keyword">str</span> = Field(unique=True)
+    central_office_address: <span class="hljs-keyword">str</span>
+    email: <span class="hljs-keyword">str</span>
+    phone_number: <span class="hljs-keyword">str</span>
+    hotels: List[<span class="hljs-symbol">'Hotel</span>'] = Relationship(back_populates=<span class="hljs-string">"hotel_chain"</span>)
+
+
+class Hotel(pc.Model, table=True):
+    id: Optional[<span class="hljs-keyword">int</span>] = Field(<span class="hljs-keyword">default</span>=<span class="hljs-literal">None</span>, primary_key=True)
+    name: <span class="hljs-keyword">str</span> = Field(unique=True)
+    hotel_chain_id: <span class="hljs-keyword">int</span> = Field(foreign_key=<span class="hljs-string">"hotelchain.id"</span>)
+    address: <span class="hljs-keyword">str</span>
+    email: <span class="hljs-keyword">str</span>
+    phone_number: <span class="hljs-keyword">str</span>
+    hotel_chain: Optional[HotelChain] = Relationship(back_populates=<span class="hljs-string">"hotels"</span>)
+    rooms: List[Room] = Relationship(back_populates=<span class="hljs-string">"hotel"</span>)
+
+
+class Room(pc.Model, table=True):
+    id: Optional[<span class="hljs-keyword">int</span>] = Field(<span class="hljs-keyword">default</span>=<span class="hljs-literal">None</span>, primary_key=True)
+    number_of_rooms: <span class="hljs-keyword">int</span>
+    price: <span class="hljs-keyword">float</span>
+    amenities: List[<span class="hljs-keyword">str</span>]
+    capacity: <span class="hljs-keyword">str</span>
+    sea_view: <span class="hljs-keyword">bool</span>
+    mountain_view: <span class="hljs-keyword">bool</span>
+    extendable: <span class="hljs-keyword">bool</span>
+    problems: <span class="hljs-keyword">str</span>
+    hotel_id: <span class="hljs-keyword">int</span> = Field(foreign_key=<span class="hljs-string">"hotel.id"</span>)
+    hotel: Optional[Hotel] = Relationship(back_populates=<span class="hljs-string">"rooms"</span>)
+    bookings: List[Booking] = Relationship(back_populates=<span class="hljs-string">"room"</span>)
+
+
+class Customer(pc.Model, table=True):
+    id: Optional[<span class="hljs-keyword">int</span>] = Field(<span class="hljs-keyword">default</span>=<span class="hljs-literal">None</span>, primary_key=True)
+    full_name: <span class="hljs-keyword">str</span>
+    address: <span class="hljs-keyword">str</span>
+    ssn_sin: <span class="hljs-keyword">str</span>
+    registration_date: <span class="hljs-keyword">str</span>
+    bookings: List[Booking] = Relationship(back_populates=<span class="hljs-string">"customer"</span>)
+
+
+class Employee(pc.Model, table=True):
+    id: Optional[<span class="hljs-keyword">int</span>] = Field(<span class="hljs-keyword">default</span>=<span class="hljs-literal">None</span>, primary_key=True)
+    full_name: <span class="hljs-keyword">str</span>
+    address: <span class="hljs-keyword">str</span>
+    ssn_sin: <span class="hljs-keyword">str</span>
+    role: <span class="hljs-keyword">str</span>
+    hotel_id: <span class="hljs-keyword">int</span> = Field(foreign_key=<span class="hljs-string">"hotel.id"</span>)
+    hotel: Optional[Hotel] = Relationship(back_populates=<span class="hljs-string">"employees"</span>)
+
+
+class Booking(pc.Model, table=True):
+    id: Optional[<span class="hljs-keyword">int</span>] = Field(<span class="hljs-keyword">default</span>=<span class="hljs-literal">None</span>, primary_key=True)
+    customer_id: <span class="hljs-keyword">int</span> = Field(foreign_key=<span class="hljs-string">"customer.id"</span>)
+    customer: Optional[Customer] = Relationship(back_populates=<span class="hljs-string">"bookings"</span>)
+    room_id: <span class="hljs-keyword">int</span> = Field(foreign_key=<span class="hljs-string">"room.id"</span>)
+    room: Optional[Room] = Relationship(back_populates=<span class="hljs-string">"bookings"</span>)
+    start_date: <span class="hljs-keyword">str</span>
+    end_date: <span class="hljs-keyword">str</span>
+    is_rented: <span class="hljs-keyword">bool</span> = False
+
+
+class Renting(pc.Model, table=True):
+    id: Optional[<span class="hljs-keyword">int</span>] = Field(<span class="hljs-keyword">default</span>=<span class="hljs-literal">None</span>, primary_key=True)
+    customer_id: <span class="hljs-keyword">int</span> = Field(foreign_key=<span class="hljs-string">"customer.id"</span>)
+    customer: Optional[Customer] = Relationship(back_populates=<span class="hljs-string">"rentings"</span>)
+    room_id: <span class="hljs-keyword">int</span> = Field(foreign_key=<span class="hljs-string">"room.id"</span>)
+    room: Optional[Room] = Relationship(back_populates=<span class="hljs-string">"rentings"</span>)
+    start_date: <span class="hljs-keyword">str</span>
+    end_date: <span class="hljs-keyword">str</span>
+    payment_amount: <span class="hljs-keyword">float</span>
+</code></pre>
+<h2 id="er-diagram">ER Diagram</h2>
+<p><img src="./er_diagram.png" alt="ER Diagram"></p>
+<h2 id="primary-key-constraints">Primary Key Constraints</h2>
+<p>The e-Hotels database schema includes the following tables, each with a primary key constraint:</p>
+<ul>
+<li><code>HotelChain</code>: <code>id</code></li>
+<li><code>Hotel</code>: <code>id</code></li>
+<li><code>Room</code>: <code>id</code></li>
+<li><code>Employee</code>: <code>id</code></li>
+<li><code>Customer</code>: <code>id</code></li>
+<li><code>Booking</code>: <code>id</code></li>
+<li><code>Renting</code>: <code>id</code></li>
+</ul>
+<p>In each table, the primary key column is named <code>id</code>. These primary key constraints ensure that each row in a table is uniquely identified and can be referenced by other tables using foreign key constraints.</p>
+<h2 id="referential-integrity-constraints">Referential Integrity Constraints</h2>
+<p>In addition to primary key constraints, the e-Hotels database schema also includes several foreign key constraints to maintain referential integrity between tables:</p>
+<ul>
+<li>The <code>Hotel</code> table includes a foreign key to the <code>HotelChain</code> table, referencing the <code>id</code> column.</li>
+<li>The <code>Room</code> table includes a foreign key to the <code>Hotel</code> table, referencing the <code>id</code> column.</li>
+<li>The <code>Employee</code> table includes a foreign key to the <code>Hotel</code> table, referencing the <code>id</code> column, and a foreign key to the <code>HotelChain</code> table, referencing the <code>id</code> column.</li>
+<li>The <code>Booking</code> table includes a foreign key to the <code>Room</code> table, referencing the <code>id</code> column, and a foreign key to the <code>Customer</code> table, referencing the <code>id</code> column.</li>
+<li>The <code>Renting</code> table includes a foreign key to the <code>Booking</code> table, referencing the <code>id</code> column.</li>
+</ul>
+<p>These foreign key constraints ensure that data in related tables is consistent and accurate. For example, a hotel cannot be deleted if it has associated rooms or employees, and a room cannot be deleted if it has associated bookings or rentings. By enforcing referential integrity, the e-Hotels database maintains the consistency and correctness of its data.</p>
+<h2 id="domain-constraints">Domain Constraints</h2>
+<ul>
+<li><code>hotelchain.name</code> is a <code>VARCHAR</code> of maximum length 100 characters.</li>
+<li><code>hotelchain.email</code> is a <code>VARCHAR</code> of maximum length 100 characters and should match the format of an email.</li>
+<li><code>hotelchain.phone_number</code> is a <code>VARCHAR</code> of maximum length 20 characters and should match the format of a phone number.</li>
+<li><code>hotel.name</code> is a <code>VARCHAR</code> of maximum length 100 characters.</li>
+<li><code>hotel.email</code> is a <code>VARCHAR</code> of maximum length 100 characters and should match the format of an email.</li>
+<li><code>hotel.phone_number</code> is a <code>VARCHAR</code> of maximum length 20 characters and should match the format of a phone number.</li>
+<li><code>room.price</code> is a <code>DECIMAL</code> value representing the cost of the room.</li>
+<li><code>room.amenities</code> is a <code>VARCHAR</code> of maximum length 100 characters.</li>
+<li><code>room.capacity</code> is a <code>VARCHAR</code> of maximum length 50 characters.</li>
+<li><code>room.view</code> is a <code>VARCHAR</code> of maximum length 20 characters and should match the options <code>sea</code> or <code>mountain</code>.</li>
+<li><code>room.extensible</code> is a <code>BOOLEAN</code> indicating whether the room can be extended with an additional bed or not.</li>
+<li><code>customer.full_name</code> is a <code>VARCHAR</code> of maximum length 100 characters.</li>
+<li><code>customer.address</code> is a <code>VARCHAR</code> of maximum length 200 characters.</li>
+<li><code>customer.SSN</code> is a <code>VARCHAR</code> of exactly length 9 characters and should only contain digits.</li>
+<li><code>employee.full_name</code> is a <code>VARCHAR</code> of maximum length 100 characters.</li>
+<li><code>employee.address</code> is a <code>VARCHAR</code> of maximum length 200 characters.</li>
+<li><code>employee.SSN</code> is a <code>VARCHAR</code> of exactly length 9 characters and should only contain digits.</li>
+</ul>
+<h2 id="track-my-progress-">Track My Progress!</h2>
+<p>I&#39;m Actively working on the project at the <a href="https://github.com/Mershab99/CSI2132-Project">Github Repo!</a></p>
