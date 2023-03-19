@@ -84,6 +84,6 @@ class Renting(pc.Model, table=True):
     payment_amount: float
 
 
-graph = create_schema_graph(metadata=MetaData(pcconfig.config.db_url),
-                            show_datatypes=True, show_indexes=True)
-graph.write_png('er_diagram.png')
+#graph = create_schema_graph(metadata=MetaData(pcconfig.config.db_url),
+#                            show_datatypes=True, show_indexes=True)
+#graph.write_png('er_diagram.png')

@@ -10,4 +10,4 @@ poetry.lock
 
 # ignore build artifacts
 .web
-pynecone.db
+#pynecone.db

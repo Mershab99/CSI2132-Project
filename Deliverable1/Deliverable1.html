@@ -1,10 +1,23 @@
 <h1 id="csi2132-e-hotels-booking-system-deliverable-1-report">CSI2132 E-Hotels Booking System Deliverable 1 Report</h1>
 <p><strong>Mershab Issadien</strong> - <em>300027272</em></p>
 <h2 id="database-schema">Database Schema</h2>
-<p>This is a snippet from <code>app/models.py</code>.</p>
+<pre><code>HotelChain (<span class="hljs-built_in">id</span> PK, <span class="hljs-built_in">name</span> UNIQUE, central_office_address, email, phone_number)
+
+Hotel (<span class="hljs-built_in">id</span> PK, <span class="hljs-built_in">name</span> UNIQUE, hotel_chain_id FK HotelChain.<span class="hljs-built_in">id</span>, address, email, phone_number)
+
+Room (<span class="hljs-built_in">id</span> PK, number_of_rooms, price, amenities, capacity, sea_view, mountain_view, extendable, problems, hotel_id FK Hotel.<span class="hljs-built_in">id</span>)
+
+Customer (<span class="hljs-built_in">id</span> PK, full_name, address, ssn_sin, registration_date)
+
+Employee (<span class="hljs-built_in">id</span> PK, full_name, address, ssn_sin, role, hotel_id FK Hotel.<span class="hljs-built_in">id</span>)
+
+Booking (<span class="hljs-built_in">id</span> PK, customer_id FK Customer.<span class="hljs-built_in">id</span>, room_id FK Room.<span class="hljs-built_in">id</span>, start_date, end_date, is_rented)
+
+Renting (<span class="hljs-built_in">id</span> PK, customer_id FK Customer.<span class="hljs-built_in">id</span>, room_id FK Room.<span class="hljs-built_in">id</span>, start_date, end_date, payment_amount)
+</code></pre><p>This is a snippet from <code>app/models.py</code>.</p>
 <p>Please Ignore the <code>pc.Model</code>. It is the Pynecone representation of SQLModel</p>
 <pre><code class="lang-python">
-## DATABASE MODELS
+## DATABASE MODELS - CLASS REPRESENTATION
 
 class HotelChain(pc.Model, table=True):
     id: Optional[<span class="hljs-keyword">int</span>] = Field(<span class="hljs-keyword">default</span>=<span class="hljs-literal">None</span>, primary_key=True)
@@ -83,6 +96,7 @@ class Renting(pc.Model, table=True):
 </code></pre>
 <h2 id="er-diagram">ER Diagram</h2>
 <p><img src="./er_diagram.png" alt="ER Diagram"></p>
+<p>See ER Diagram in Zip File</p>
 <h2 id="primary-key-constraints">Primary Key Constraints</h2>
 <p>The e-Hotels database schema includes the following tables, each with a primary key constraint:</p>
 <ul>

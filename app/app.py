@@ -8,7 +8,7 @@ from app.pages.test import test
 from .state import BaseState
 
 app = pc.App(state=BaseState)
-app.add_page(counter)
-app.add_page(index)
+app.add_page(counter, route='/counter')
+app.add_page(index, route='/')
 app.add_page(test)
 app.compile()
