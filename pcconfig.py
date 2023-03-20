@@ -5,7 +5,7 @@ config = pc.Config(
     db_url="sqlite:///pynecone.db",
     env=pc.Env.DEV,
     port="3000",
-    bun_path="/app/.bun/bin/bun",
-    telemetry_enabled=False
-    #bun_path="/usr/local/bin/bun",  # un-comment if you want to run in Docker
+    telemetry_enabled=False,
+    #bun_path="/usr/local/bin/bun",
+    #bun_path="/app/.bun/bin/bun", # un-comment if you want to run in Docker
 )
