@@ -46,8 +46,8 @@ RUN pc init
 
 FROM runtime
 
-#COPY --chown=pynecone --from=init /app/ /app/
-COPY --from=init /app/ /app/
+COPY --chown=pynecone --from=init /app/ /app/
+#COPY --from=init /app/ /app/
 USER pynecone
 WORKDIR /app
 
