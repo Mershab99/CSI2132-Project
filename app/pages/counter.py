@@ -1,10 +1,15 @@
 """Welcome to Pynecone! This file outlines the steps to create a basic app."""
+import logging
+
 import pynecone as pc
 
-from app.state import BaseState
+from app.state import State
 
 
-class State(BaseState):
+logger = logging.getLogger(__name__)
+
+
+class CounterState(State):
     count: int = 0
 
     def increment_by_2(self):
@@ -20,13 +25,13 @@ def counter():
             "Decrement",
             color_scheme="red",
             border_radius="1em",
-            on_click=State.decrement_by_2,
+            on_click=CounterState.decrement_by_2,
         ),
-        pc.heading(State.count, font_size="2em"),
+        pc.heading(CounterState.count, font_size="2em"),
         pc.button(
             "Increment",
             color_scheme="green",
             border_radius="1em",
-            on_click=State.increment_by_2,
+            on_click=CounterState.increment_by_2,
         ),
     )

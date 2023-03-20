@@ -1,5 +1,5 @@
 import pynecone as pc
 
 
-class BaseState(pc.State):
-    pass
+class State(pc.State):
+    ...
