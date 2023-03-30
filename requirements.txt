@@ -1,2 +1,5 @@
-pynecone~=0.1.15
+pynecone~=0.1.20
 sqlalchemy_schemadisplay
+
+sqlmodel~=0.0.8
+SQLAlchemy~=1.4.41
