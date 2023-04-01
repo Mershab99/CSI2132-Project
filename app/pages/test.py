@@ -1,6 +1,6 @@
 import pynecone as pc
 
-from app.state import BaseState
+from app.basestate import BaseState
 
 from app.models import HotelChain
 

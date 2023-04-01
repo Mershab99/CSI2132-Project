@@ -155,4 +155,4 @@ These foreign key constraints ensure that data in related tables is consistent a
 
 ## Track My Progress!
 
-I'm Actively working on the project at the [Github Repo!](https://github.com/Mershab99/CSI2132-Project)
+I'm Actively working on the project at the [GitHub Repo!](https://github.com/Mershab99/CSI2132-Project)

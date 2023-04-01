@@ -40,7 +40,7 @@ WORKDIR /app
 ENV BUN_INSTALL="/app/.bun"
 COPY --from=build /app/ /app/
 
-RUN echo $PATH
+#RUN echo $PATH
 RUN pc init
 
 
