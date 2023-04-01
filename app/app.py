@@ -3,7 +3,6 @@ import pynecone as pc
 
 from sqlalchemy import text
 
-import pcconfig
 from app.pages.counter import counter
 from app.pages.index import index
 from app.pages.test import test

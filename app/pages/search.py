@@ -11,19 +11,18 @@ logger = logging.getLogger(__name__)
 
 
 class SearchState(BaseState):
-    chains: List[HotelChain]
 
-    def get_hotel_chains(self):
+    @pc.var
+    def get_hotel_chains(self) -> List[str]:
         with pc.session() as session:
-            self.chains = (
-                session.query(HotelChain).all()
-            )
+            result = session.execute("SELECT name from hotelchain")
+            return [row[0] for row in result]
 
 
 def search():
     return pc.hstack(
-        pc.text(
-            SearchState.chains,
+        pc.list(
+            items=SearchState.get_hotel_chains,
             background_image="linear-gradient(271.68deg, #EE756A 0.75%, #756AEE 88.52%)",
             background_clip="text",
             font_weight="bold",

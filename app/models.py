@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import List, Optional
+from typing import List, Optional, ForwardRef
 
 import pynecone as pc
 from sqlmodel import *
@@ -14,7 +14,6 @@ class HotelChain(pc.Model, table=True):
     central_office_address: str
     email: str
     phone_number: str
-    hotels: List['Hotel'] = Relationship(back_populates="hotel_chain")
 
 
 class Hotel(pc.Model, table=True):
@@ -24,8 +23,6 @@ class Hotel(pc.Model, table=True):
     address: str
     email: str
     phone_number: str
-    hotel_chain: Optional[HotelChain] = Relationship(back_populates="hotels")
-    rooms: List[Room] = Relationship(back_populates="hotel")
 
 
 class Room(pc.Model, table=True):
@@ -39,8 +36,6 @@ class Room(pc.Model, table=True):
     extendable: bool
     problems: str
     hotel_id: int = Field(foreign_key="hotel.id")
-    hotel: Optional[Hotel] = Relationship(back_populates="rooms")
-    bookings: List[Booking] = Relationship(back_populates="room")
 
 
 class Customer(pc.Model, table=True):
@@ -49,7 +44,6 @@ class Customer(pc.Model, table=True):
     address: str
     ssn_sin: str
     registration_date: str
-    bookings: List[Booking] = Relationship(back_populates="customer")
 
 
 class Employee(pc.Model, table=True):
@@ -59,15 +53,12 @@ class Employee(pc.Model, table=True):
     ssn_sin: str
     role: str
     hotel_id: int = Field(foreign_key="hotel.id")
-    hotel: Optional[Hotel] = Relationship(back_populates="employees")
 
 
 class Booking(pc.Model, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     customer_id: int = Field(foreign_key="customer.id")
-    customer: Optional[Customer] = Relationship(back_populates="bookings")
     room_id: int = Field(foreign_key="room.id")
-    room: Optional[Room] = Relationship(back_populates="bookings")
     start_date: str
     end_date: str
     is_rented: bool = False
@@ -76,12 +67,25 @@ class Booking(pc.Model, table=True):
 class Renting(pc.Model, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     customer_id: int = Field(foreign_key="customer.id")
-    customer: Optional[Customer] = Relationship(back_populates="rentings")
     room_id: int = Field(foreign_key="room.id")
-    room: Optional[Room] = Relationship(back_populates="rentings")
     start_date: str
     end_date: str
     payment_amount: float
+
+
+# Define relationships after all classes have been created
+HotelChain.hotels = Relationship(back_populates="hotel_chain")
+Hotel.hotels = Relationship(back_populates="hotel_chain")
+Hotel.hotel_chain = Relationship(back_populates="hotels")
+Hotel.rooms = Relationship(back_populates="hotel")
+Room.hotel = Relationship(back_populates="rooms")
+Room.bookings = Relationship(back_populates="room")
+Customer.bookings = Relationship(back_populates="customer")
+Employee.hotel = Relationship(back_populates="employees")
+Booking.customer = Relationship(back_populates="bookings")
+Booking.room = Relationship(back_populates="bookings")
+Renting.customer = Relationship(back_populates="rentings")
+Renting.room = Relationship(back_populates="rentings")
 
 
 graph = create_schema_graph(metadata=MetaData(pcconfig.config.db_url),
