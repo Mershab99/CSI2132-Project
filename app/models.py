@@ -10,7 +10,7 @@ import pcconfig
 
 class HotelChain(pc.Model, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    name: str = Field(unique=True)
+    name: str = Field(unique=False)
     central_office_address: str
     email: str
     phone_number: str
@@ -19,7 +19,7 @@ class HotelChain(pc.Model, table=True):
 
 class Hotel(pc.Model, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    name: str = Field(unique=True)
+    name: str = Field(unique=False)
     hotel_chain_id: int = Field(foreign_key="hotelchain.id")
     address: str
     email: str

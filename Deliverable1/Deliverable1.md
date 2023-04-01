@@ -2,29 +2,12 @@
 **Mershab Issadien** - *300027272*
 
 ## Database Schema
-```
-HotelChain (id PK, name UNIQUE, central_office_address, email, phone_number)
-
-Hotel (id PK, name UNIQUE, hotel_chain_id FK HotelChain.id, address, email, phone_number)
-
-Room (id PK, number_of_rooms, price, amenities, capacity, sea_view, mountain_view, extendable, problems, hotel_id FK Hotel.id)
-
-Customer (id PK, full_name, address, ssn_sin, registration_date)
-
-Employee (id PK, full_name, address, ssn_sin, role, hotel_id FK Hotel.id)
-
-Booking (id PK, customer_id FK Customer.id, room_id FK Room.id, start_date, end_date, is_rented)
-
-Renting (id PK, customer_id FK Customer.id, room_id FK Room.id, start_date, end_date, payment_amount)
-
-```
-
 This is a snippet from `app/models.py`.
 
 Please Ignore the `pc.Model`. It is the Pynecone representation of SQLModel
 ```python
 
-## DATABASE MODELS - CLASS REPRESENTATION
+## DATABASE MODELS
 
 class HotelChain(pc.Model, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -103,7 +86,7 @@ class Renting(pc.Model, table=True):
 ```
 
 ## ER Diagram
-![ER Diagram](./er_diagram.png)
+![ER Diagram](../er_diagram.png)
 
 
 
