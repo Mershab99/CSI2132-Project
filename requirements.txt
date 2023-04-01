@@ -3,3 +3,4 @@ sqlalchemy_schemadisplay
 
 sqlmodel~=0.0.8
 SQLAlchemy~=1.4.41
+psycopg2-binary

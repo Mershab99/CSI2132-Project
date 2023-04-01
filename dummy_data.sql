@@ -23,19 +23,33 @@ INSERT INTO hotel (name, hotel_chain_id, address, email, phone_number) VALUES
 ('Best Western Hotel Midtown', 5, '300 Third Ave', 'midtown@bestwestern.com', '555-6001');
 
 INSERT INTO Room (number_of_rooms, price, amenities, capacity, sea_view, mountain_view, extendable, problems, hotel_id) VALUES
-  (10, 150.00, '{wifi, air conditioning, tv}', 'double', true, false, true, '', 1),
-  (5, 200.00, '{wifi, air conditioning, tv, minibar, balcony}', 'triple', true, false, true, '', 1),
-  (8, 100.00, '{wifi, tv}', 'single', false, true, false, '', 1),
-  (6, 300.00, '{wifi, air conditioning, tv, minibar, balcony}', 'suite', true, true, true, '', 1),
-  (12, 100.00, '{wifi, tv}', 'single', true, false, false, '', 2),
-  (7, 200.00, '{wifi, air conditioning, tv, minibar, balcony}', 'double', true, false, true, '', 2),
-  (15, 150.00, '{wifi, air conditioning, tv}', 'twin', true, false, false, '', 2),
-  (4, 250.00, '{wifi, air conditioning, tv, minibar, balcony}', 'suite', true, true, true, '', 3),
-  (9, 120.00, '{wifi, tv}', 'single', false, true, false, '', 3),
-  (6, 180.00, '{wifi, air conditioning, tv, balcony}', 'double', true, false, true, '', 3),
-  (8, 80.00, '{wifi, tv}', 'single', true, false, false, '', 4),
-  (11, 160.00, '{wifi, air conditioning, tv}', 'double', true, true, true, '', 4),
-  (5, 250.00, '{wifi, air conditioning, tv, minibar, balcony}', 'suite', true, true, true, '', 4),
-  (20, 200.00, '{wifi, air conditioning, tv}', 'double', false, true, false, '', 5),
-  (13, 120.00, '{wifi, tv}', 'single', true, false, false, '', 5),
-  (7, 180.00, '{wifi, air conditioning, tv, balcony}', 'double', true, true, true, '', 5);
+  (10, 150.00, '{wifi, air conditioning, tv}', 2, true, false, true, '', 1),
+  (5, 200.00, '{wifi, air conditioning, tv, minibar, balcony}', 3, true, false, true, '', 1),
+  (8, 100.00, '{wifi, tv}', 1, false, true, false, '', 1),
+  (6, 300.00, '{wifi, air conditioning, tv, minibar, balcony}', 4, true, true, true, '', 1),
+  (12, 100.00, '{wifi, tv}', 1, true, false, false, '', 2),
+  (7, 200.00, '{wifi, air conditioning, tv, minibar, balcony}', 2, true, false, true, '', 2),
+  (15, 150.00, '{wifi, air conditioning, tv}', 2, true, false, false, '', 2),
+  (4, 250.00, '{wifi, air conditioning, tv, minibar, balcony}', 4, true, true, true, '', 3),
+  (9, 120.00, '{wifi, tv}', 1, false, true, false, '', 3),
+  (6, 180.00, '{wifi, air conditioning, tv, balcony}', 2, true, false, true, '', 3),
+  (8, 80.00, '{wifi, tv}', 1, true, false, false, '', 4),
+  (11, 160.00, '{wifi, air conditioning, tv}', 2, true, true, true, '', 4),
+  (5, 250.00, '{wifi, air conditioning, tv, minibar, balcony}', 4, true, true, true, '', 4),
+  (20, 200.00, '{wifi, air conditioning, tv}', 2, false, true, false, '', 5),
+  (13, 120.00, '{wifi, tv}', 1, true, false, false, '', 5),
+  (7, 180.00, '{wifi, air conditioning, tv, balcony}', 2, true, true, true, '', 5);
+
+INSERT INTO Customer (full_name, address, ssn_sin, registration_date) VALUES
+  ('John Doe', '123 Main St, Anytown USA', '123-45-6789', '2022-01-01'),
+  ('Jane Smith', '456 High St, Anytown USA', '987-65-4321', '2022-02-01'),
+  ('Bob Johnson', '789 Market St, Anytown USA', '456-78-9012', '2022-03-01'),
+  ('Alice Lee', '321 Elm St, Anytown USA', '789-01-2345', '2022-04-01'),
+  ('Mike Brown', '654 Oak St, Anytown USA', '234-56-7890', '2022-05-01');
+
+INSERT INTO Employee (full_name, address, ssn_sin, role, hotel_id) VALUES
+  ('John Smith', '123 Main St, Anytown USA', '111-11-1111', 'Manager', 1),
+  ('Jane Doe', '456 High St, Anytown USA', '222-22-2222', 'Receptionist', 1),
+  ('Bob Smith', '789 Market St, Anytown USA', '333-33-3333', 'Janitor', 2),
+  ('Alice Doe', '321 Elm St, Anytown USA', '444-44-4444', 'Manager', 2),
+  ('Mike Smith', '654 Oak St, Anytown USA', '555-55-5555', 'Receptionist', 3);

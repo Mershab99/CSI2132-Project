@@ -30,7 +30,7 @@ class Room(pc.Model, table=True):
     number_of_rooms: int
     price: float
     amenities: List[str]
-    capacity: str
+    capacity: int
     sea_view: bool
     mountain_view: bool
     extendable: bool
@@ -62,6 +62,16 @@ class Booking(pc.Model, table=True):
     start_date: str
     end_date: str
     is_rented: bool = False
+
+    def json(self, **kwargs):
+        return {
+            "id": self.id,
+            "customer_id": self.customer_id,
+            "room_id": self.room_id,
+            "start_date": self.start_date,
+            "end_date": self.end_date,
+            "is_rented": self.is_rented
+        }
 
 
 class Renting(pc.Model, table=True):
