@@ -262,7 +262,11 @@ Source code is provided in `source.zip`, latest version can be found on GitHub l
 In order to run the application, one simply has to: 
 1. Clone the git repo:
 `git clone https://github.com/Mershab99/CSI2132-Project.git`
-2. Run `docker-compose up`
+OR unzip `source.zip`
+2. Install Prerequisites:
+     - Python 3.7+
+     - NodeJS 12.22.0+
+2. Run `pc run`
 3. Navigate to `localhost:3000`
 
 #### Enjoy!
