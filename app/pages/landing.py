@@ -7,7 +7,7 @@ from app.basestate import DUMMY_DATA, BaseState
 
 logger = logging.getLogger(__name__)
 
-columns = ["start_date", "end_date", "is_rented"]
+columns = ["starroomt_date", "end_date", "is_rented"]
 
 
 def get_booking_list():
